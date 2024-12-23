@@ -1,0 +1,242 @@
+[chain/start] [chain:RetrievalGraph] Entering Chain run with input:
+[inputs]
+[chain/start] [chain:RetrievalGraph > chain:__start__] Entering Chain run with input:
+[inputs]
+[chain/start] [chain:RetrievalGraph > chain:__start__ > chain:_write] Entering Chain run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:__start__ > chain:_write] [1ms] Exiting Chain run with output:
+[outputs]
+[chain/start] [chain:RetrievalGraph > chain:__start__ > chain:_write] Entering Chain run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:__start__ > chain:_write] [1ms] Exiting Chain run with output:
+[outputs]
+[chain/end] [chain:RetrievalGraph > chain:__start__] [6ms] Exiting Chain run with output:
+[outputs]
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query] Entering Chain run with input:
+[inputs]
+Call LLM to figure out Routing
+query_model: {"model":"hf:Qwen/Qwen2.5-72B-Instruct","temperature":0.0,"base_url":"https://glhf.chat/api/openai/v1/","api_key":"glhf_fe61eab43c10eda3d5df66fceaf0a46b","disabled_params":{"parallel_tool_calls":null}}, type: <class 'experimental.types.BaseChatConfig'>
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence] Entering Chain run with input:
+[inputs]
+[llm/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > llm:ChatOpenAI] Entering LLM run with input:
+{
+  "prompts": [
+    "System: You are a LangChain Developer advocate. Your job is to help people using LangChain answer any issues they are running into.\n\nA user will come to you with an inquiry. Your first job is to classify what type of inquiry it is. The types of inquiries you should classify it as are:\n\n## `more-info`\nClassify a user inquiry as this if you need more information before you will be able to help them. Examples include:\n- The user complains about an error but doesn't provide the error\n- The user says something isn't working but doesn't explain why/how it's not working\n\n## `langchain`\nClassify a user inquiry as this if it can be answered by looking up information related to LangChain open source package. The LangChain open source package is a python library for working with LLMs. It integrates with various LLMs, databases and APIs.\n\n## `general`\nClassify a user inquiry as this if it is just a general question\nHuman: Hi"
+  ]
+}
+[llm/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > llm:ChatOpenAI] [2.08s] Exiting LLM run with output:
+{
+  "generations": [
+    [
+      {
+        "text": "",
+        "generation_info": {
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "",
+            "additional_kwargs": {
+              "tool_calls": [
+                {
+                  "id": "call_A258kWo9eG8dsaYbSGVj8Et1",
+                  "function": {
+                    "arguments": "{\"logic\": \"The user has just said hi and not provided any specific inquiry or issue.\", \"type\": \"more-info\"}",
+                    "name": "Router"
+                  },
+                  "type": "function",
+                  "index": 0
+                }
+              ],
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 37,
+                "prompt_tokens": 369,
+                "total_tokens": 406,
+                "completion_tokens_details": null,
+                "prompt_tokens_details": null
+              },
+              "model_name": "accounts/fireworks/models/qwen2p5-72b-instruct",
+              "system_fingerprint": null,
+              "finish_reason": "tool_calls",
+              "logprobs": null
+            },
+            "type": "ai",
+            "id": "run-225651cb-b129-449a-8c6b-ec456a5b4a98-0",
+            "tool_calls": [
+              {
+                "name": "Router",
+                "args": {
+                  "logic": "The user has just said hi and not provided any specific inquiry or issue.",
+                  "type": "more-info"
+                },
+                "id": "call_A258kWo9eG8dsaYbSGVj8Et1",
+                "type": "tool_call"
+              }
+            ],
+            "usage_metadata": {
+              "input_tokens": 369,
+              "output_tokens": 37,
+              "total_tokens": 406,
+              "input_token_details": {},
+              "output_token_details": {}
+            },
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "token_usage": {
+      "completion_tokens": 37,
+      "prompt_tokens": 369,
+      "total_tokens": 406,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    },
+    "model_name": "accounts/fireworks/models/qwen2p5-72b-instruct",
+    "system_fingerprint": null
+  },
+  "run": null,
+  "type": "LLMResult"
+}
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > parser:JsonOutputKeyToolsParser] Entering Parser run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > parser:JsonOutputKeyToolsParser] [1ms] Exiting Parser run with output:
+{
+  "logic": "The user has just said hi and not provided any specific inquiry or issue.",
+  "type": "more-info"
+}
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence] [2.08s] Exiting Chain run with output:
+{
+  "logic": "The user has just said hi and not provided any specific inquiry or issue.",
+  "type": "more-info"
+}
+router:
+ {"logic": "The user has just said hi and not provided any specific inquiry or issue.", "type": "more-info"}
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:_write] Entering Chain run with input:
+{
+  "router": {
+    "logic": "The user has just said hi and not provided any specific inquiry or issue.",
+    "type": "more-info"
+  }
+}
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:_write] [1ms] Exiting Chain run with output:
+{
+  "router": {
+    "logic": "The user has just said hi and not provided any specific inquiry or issue.",
+    "type": "more-info"
+  }
+}
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:route_query] Entering Chain run with input:
+[inputs]
+route_query -> type: more-info
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:route_query] [1ms] Exiting Chain run with output:
+{
+  "output": "ask_for_more_info"
+}
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query] [4.35s] Exiting Chain run with output:
+{
+  "router": {
+    "logic": "The user has just said hi and not provided any specific inquiry or issue.",
+    "type": "more-info"
+  }
+}
+[chain/start] [chain:RetrievalGraph > chain:ask_for_more_info] Entering Chain run with input:
+[inputs]
+[llm/start] [chain:RetrievalGraph > chain:ask_for_more_info > llm:ChatOpenAI] Entering LLM run with input:
+{
+  "prompts": [
+    "System: You are a LangChain Developer advocate. Your job is help people using LangChain answer any issues they are running into.\n\nYour boss has determined that more information is needed before doing any research on behalf of the user. This was their logic:\n\n<logic>\nThe user has just said hi and not provided any specific inquiry or issue.\n</logic>\n\nRespond to the user and try to get any more relevant information. Do not overwhelm them! Be nice, and only ask them a single follow up question.\nHuman: Hi"
+  ]
+}
+[llm/end] [chain:RetrievalGraph > chain:ask_for_more_info > llm:ChatOpenAI] [1.50s] Exiting LLM run with output:
+{
+  "generations": [
+    [
+      {
+        "text": "Hi there! 😊 How can I assist you with LangChain today? Do you have a specific question or issue you're running into?",
+        "generation_info": {
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "Hi there! 😊 How can I assist you with LangChain today? Do you have a specific question or issue you're running into?",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 29,
+                "prompt_tokens": 114,
+                "total_tokens": 143,
+                "completion_tokens_details": null,
+                "prompt_tokens_details": null
+              },
+              "model_name": "accounts/fireworks/models/qwen2p5-72b-instruct",
+              "system_fingerprint": null,
+              "finish_reason": "stop",
+              "logprobs": null
+            },
+            "type": "ai",
+            "id": "run-3db1c0c0-138e-4f77-a63d-52c8e57f60c6-0",
+            "usage_metadata": {
+              "input_tokens": 114,
+              "output_tokens": 29,
+              "total_tokens": 143,
+              "input_token_details": {},
+              "output_token_details": {}
+            },
+            "tool_calls": [],
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "token_usage": {
+      "completion_tokens": 29,
+      "prompt_tokens": 114,
+      "total_tokens": 143,
+      "completion_tokens_details": null,
+      "prompt_tokens_details": null
+    },
+    "model_name": "accounts/fireworks/models/qwen2p5-72b-instruct",
+    "system_fingerprint": null
+  },
+  "run": null,
+  "type": "LLMResult"
+}
+[chain/start] [chain:RetrievalGraph > chain:ask_for_more_info > chain:_write] Entering Chain run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:ask_for_more_info > chain:_write] [1ms] Exiting Chain run with output:
+[outputs]
+[chain/end] [chain:RetrievalGraph > chain:ask_for_more_info] [1.57s] Exiting Chain run with output:
+[outputs]
+[chain/end] [chain:RetrievalGraph] [5.94s] Exiting Chain run with output:
+[outputs]
+Hi there! 😊 How can I assist you with LangChain today? Do you have a specific question or issue you're running into?    

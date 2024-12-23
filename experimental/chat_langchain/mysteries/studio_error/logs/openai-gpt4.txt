@@ -1,0 +1,285 @@
+[chain/start] [chain:RetrievalGraph] Entering Chain run with input:
+[inputs]
+[chain/start] [chain:RetrievalGraph > chain:__start__] Entering Chain run with input:
+[inputs]
+[chain/start] [chain:RetrievalGraph > chain:__start__ > chain:_write] Entering Chain run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:__start__ > chain:_write] [1ms] Exiting Chain run with output:
+[outputs]
+[chain/start] [chain:RetrievalGraph > chain:__start__ > chain:_write] Entering Chain run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:__start__ > chain:_write] [1ms] Exiting Chain run with output:
+[outputs]
+[chain/end] [chain:RetrievalGraph > chain:__start__] [6ms] Exiting Chain run with output:
+[outputs]
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query] Entering Chain run with input:
+[inputs]
+Call LLM to figure out Routing
+query_model: {"model":"gpt-4","temperature":0.0,"base_url":null,"api_key":null,"disabled_params":{"parallel_tool_calls":null}}, type: <class 'experimental.types.BaseChatConfig'>
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence] Entering Chain run with input:
+[inputs]
+[llm/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > llm:ChatOpenAI] Entering LLM run with input:
+{
+  "prompts": [
+    "System: You are a LangChain Developer advocate. Your job is to help people using LangChain answer any issues they are running into.\n\nA user will come to you with an inquiry. Your first job is to classify what type of inquiry it is. The types of inquiries you should classify it as are:\n\n## `more-info`\nClassify a user inquiry as this if you need more information before you will be able to help them. Examples include:\n- The user complains about an error but doesn't provide the error\n- The user says something isn't working but doesn't explain why/how it's not working\n\n## `langchain`\nClassify a user inquiry as this if it can be answered by looking up information related to LangChain open source package. The LangChain open source package is a python library for working with LLMs. It integrates with various LLMs, databases and APIs.\n\n## `general`\nClassify a user inquiry as this if it is just a general question\nHuman: Hi"
+  ]
+}
+[llm/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > llm:ChatOpenAI] [1.63s] Exiting LLM run with output:
+{
+  "generations": [
+    [
+      {
+        "text": "",
+        "generation_info": {
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "",
+            "additional_kwargs": {
+              "tool_calls": [
+                {
+                  "id": "call_l9NqgobKkbiFLfLwpOB3q6fs",
+                  "function": {
+                    "arguments": "{\n\"logic\": \"Hi\",\n\"type\": \"general\"\n}",
+                    "name": "Router"
+                  },
+                  "type": "function"
+                }
+              ],
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 14,
+                "prompt_tokens": 262,
+                "total_tokens": 276,
+                "completion_tokens_details": {
+                  "accepted_prediction_tokens": 0,
+                  "audio_tokens": 0,
+                  "reasoning_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                },
+                "prompt_tokens_details": {
+                  "audio_tokens": 0,
+                  "cached_tokens": 0
+                }
+              },
+              "model_name": "gpt-4-0613",
+              "system_fingerprint": null,
+              "finish_reason": "stop",
+              "logprobs": null
+            },
+            "type": "ai",
+            "id": "run-8c3a2f79-7775-4321-b9e2-debdbc846c8d-0",
+            "tool_calls": [
+              {
+                "name": "Router",
+                "args": {
+                  "logic": "Hi",
+                  "type": "general"
+                },
+                "id": "call_l9NqgobKkbiFLfLwpOB3q6fs",
+                "type": "tool_call"
+              }
+            ],
+            "usage_metadata": {
+              "input_tokens": 262,
+              "output_tokens": 14,
+              "total_tokens": 276,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            },
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "token_usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 262,
+      "total_tokens": 276,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      }
+    },
+    "model_name": "gpt-4-0613",
+    "system_fingerprint": null
+  },
+  "run": null,
+  "type": "LLMResult"
+}
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > parser:JsonOutputKeyToolsParser] Entering Parser run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence > parser:JsonOutputKeyToolsParser] [1ms] Exiting Parser run with output:
+{
+  "logic": "Hi",
+  "type": "general"
+}
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:RunnableSequence] [1.64s] Exiting Chain run with output:
+{
+  "logic": "Hi",
+  "type": "general"
+}
+router:
+ {"logic": "Hi", "type": "general"}
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:_write] Entering Chain run with input:
+{
+  "router": {
+    "logic": "Hi",
+    "type": "general"
+  }
+}
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:_write] [1ms] Exiting Chain run with output:
+{
+  "router": {
+    "logic": "Hi",
+    "type": "general"
+  }
+}
+[chain/start] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:route_query] Entering Chain run with input:
+[inputs]
+route_query -> type: general
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query > chain:route_query] [1ms] Exiting Chain run with output:
+{
+  "output": "respond_to_general_query"
+}
+[chain/end] [chain:RetrievalGraph > chain:analyze_and_route_query] [2.26s] Exiting Chain run with output:
+{
+  "router": {
+    "logic": "Hi",
+    "type": "general"
+  }
+}
+[chain/start] [chain:RetrievalGraph > chain:respond_to_general_query] Entering Chain run with input:
+[inputs]
+[llm/start] [chain:RetrievalGraph > chain:respond_to_general_query > llm:ChatOpenAI] Entering LLM run with input:
+{
+  "prompts": [
+    "System: You are a LangChain Developer advocate. Your job is to help people using LangChain answer any issues they are running into.\n\nYour boss has determined that the user is asking a general question, not one related to LangChain. This was their logic:\n\n<logic>\nHi\n</logic>\n\nRespond to the user. Politely decline to answer and tell them you can only answer questions about LangChain-related topics, and that if their question is about LangChain they should clarify how it is.\n\nBe nice to them though - they are still a user!\nHuman: Hi"
+  ]
+}
+[llm/end] [chain:RetrievalGraph > chain:respond_to_general_query > llm:ChatOpenAI] [2.47s] Exiting LLM run with output:
+{
+  "generations": [
+    [
+      {
+        "text": "Hello! I noticed your message is quite general. I'm here to assist with any questions or issues related to LangChain. If your query is about LangChain, could you please provide more details so I can help you better? Thanks!",
+        "generation_info": {
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "Hello! I noticed your message is quite general. I'm here to assist with any questions or issues related to LangChain. If your query is about LangChain, could you please provide more details so I can help you better? Thanks!",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 49,
+                "prompt_tokens": 122,
+                "total_tokens": 171,
+                "completion_tokens_details": {
+                  "accepted_prediction_tokens": 0,
+                  "audio_tokens": 0,
+                  "reasoning_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                },
+                "prompt_tokens_details": {
+                  "audio_tokens": 0,
+                  "cached_tokens": 0
+                }
+              },
+              "model_name": "gpt-4-0613",
+              "system_fingerprint": null,
+              "finish_reason": "stop",
+              "logprobs": null
+            },
+            "type": "ai",
+            "id": "run-65ce677e-a3ea-48b2-a9e2-bd6cf5374a78-0",
+            "usage_metadata": {
+              "input_tokens": 122,
+              "output_tokens": 49,
+              "total_tokens": 171,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            },
+            "tool_calls": [],
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "token_usage": {
+      "completion_tokens": 49,
+      "prompt_tokens": 122,
+      "total_tokens": 171,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      }
+    },
+    "model_name": "gpt-4-0613",
+    "system_fingerprint": null
+  },
+  "run": null,
+  "type": "LLMResult"
+}
+[chain/start] [chain:RetrievalGraph > chain:respond_to_general_query > chain:_write] Entering Chain run with input:
+[inputs]
+[chain/end] [chain:RetrievalGraph > chain:respond_to_general_query > chain:_write] [1ms] Exiting Chain run with output:
+[outputs]
+[chain/end] [chain:RetrievalGraph > chain:respond_to_general_query] [2.55s] Exiting Chain run with output:
+[outputs]
+[chain/end] [chain:RetrievalGraph] [4.82s] Exiting Chain run with output:
+[outputs]
+Hello! I noticed your message is quite general. I'm here to assist with any questions or issues related to LangChain. If your query is about LangChain, could you please provide more details so I can help you better? Thanks!   
