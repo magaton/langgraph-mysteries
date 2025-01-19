@@ -49,11 +49,16 @@ async def analyze_and_route_query(
     messages = [
         {"role": "system", "content": configuration.router_system_prompt}
     ] + state.messages
-    response = cast(
-        Router, await model.with_structured_output(Router).ainvoke(messages)
-    )
-    print(f"router:\n {json.dumps(response)}")
-    return {"router": response}
+
+    model = model.with_structured_output(Router)
+    response = await model.ainvoke(messages)
+    print(f"response:\n {response}")
+    router = {
+        "logic": response.get("logic", ""),
+        "type": response.get("type", "more-info")
+    }
+    print(f"router:\n {json.dumps(router)}")
+    return {"router": router}
 
 
 def route_query(
